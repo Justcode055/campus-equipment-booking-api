@@ -4,7 +4,7 @@ Base URL: `http://localhost:8787/api`.
 
 Design recorded before implementation. The folder has no starter repository, so this submission uses TypeScript, Hono's Node adapter, and local SQLite on Node 24.11 or later.
 
-Later deployment preparation adds a Cloudflare Workers/D1 entry point with the same contract. Its base URL is the deployed workers.dev URL plus `/api`; a remote URL has not yet been recorded. Both runtimes share field/date validation in `src/validation.ts`.
+Later deployment preparation adds a Cloudflare Workers/D1 entry point with the same contract. Live base URL: `https://campus-equipment-api.6731503055.workers.dev/api`. Student-supplied output records live equipment/bookings GET responses; full remote CRUD/error checks remain to be recorded. Both runtimes share field/date validation in `src/validation.ts`.
 
 | Method | Path | Success | Body |
 | --- | --- | --- | --- |

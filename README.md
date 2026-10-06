@@ -2,7 +2,11 @@
 
 TypeScript/Hono API with two runtime options: Node with persistent local SQLite, or Cloudflare Workers with D1. Implements the exam's equipment list and complete bookings CRUD with validation, JSON errors, and atomic overlap prevention. The instructions below run the original Node version.
 
-For GitHub publishing and a live Cloudflare API, follow [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md). Worker source is `src/worker.ts`; the D1 migration is `migrations/0001_initial.sql`. Wrangler configuration currently has a local placeholder database ID that must be replaced before remote deployment. No remote deployment URL is recorded yet.
+Source repository: [Justcode055/campus-equipment-booking-api](https://github.com/Justcode055/campus-equipment-booking-api) (URL read from the configured Git remote; repository visibility/access has not been checked here).
+
+Live base API URL: **https://campus-equipment-api.6731503055.workers.dev/api**. [Equipment endpoint](https://campus-equipment-api.6731503055.workers.dev/api/equipment) returns the two seed records. Student-supplied output records HTTP 200 for equipment and bookings; see [live read evidence](evidence/CLOUDFLARE_LIVE_READ_CHECKS.md). Remote CRUD/error verification is still to be recorded.
+
+For GitHub publishing and Cloudflare deployment, follow [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md). Worker source is `src/worker.ts`; the D1 migration is `migrations/0001_initial.sql`. Wrangler configuration now contains the student's real D1 database ID.
 
 ## Run
 

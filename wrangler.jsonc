@@ -11,7 +11,7 @@
       "binding": "DB",
       "database_name": "campus-equipment-db",
       // Replace this local-development ID with the real ID from wrangler d1 create.
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "291b6fdc-f3f0-49f5-9866-0384909fdc0f",
       "migrations_dir": "migrations"
     }
   ]

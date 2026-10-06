@@ -1,6 +1,6 @@
 # Local Cloudflare Worker HTTP evidence
 
-Recorded: 2026-10-06T08:02:23.735Z
+Recorded: 2026-10-06T08:27:00.306Z
 
 Base URL: http://127.0.0.1:8789/api
 
@@ -34,31 +34,31 @@ Expected: 200; observed: 200
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z"}
+Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z"}
 
 Expected: 201; observed: 201
 
 ```json
-{"id":"8bdb22ab-81ee-4e32-94a4-0640a46bf476","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d"}
+{"id":"16afb542-a949-42fd-95c2-a5a8bee51ebe","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721"}
 ```
 
 ## 4. Read one
 
-GET http://127.0.0.1:8789/api/bookings/8bdb22ab-81ee-4e32-94a4-0640a46bf476
+GET http://127.0.0.1:8789/api/bookings/16afb542-a949-42fd-95c2-a5a8bee51ebe
 
 Request body: (none)
 
 Expected: 200; observed: 200
 
 ```json
-{"id":"8bdb22ab-81ee-4e32-94a4-0640a46bf476","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d"}
+{"id":"16afb542-a949-42fd-95c2-a5a8bee51ebe","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721"}
 ```
 
 ## 5. Overlap create mapped from D1 trigger
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T10:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z"}
+Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T10:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z"}
 
 Expected: 409; observed: 409
 
@@ -70,17 +70,17 @@ Expected: 409; observed: 409
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T12:00:00.000Z"}
+Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T12:00:00.000Z"}
 
 Expected: 201; observed: 201
 
 ```json
-{"id":"5caf54c8-6558-4ef2-8891-eee5882c9603","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T12:00:00.000Z","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d"}
+{"id":"bb60eeb1-7228-4d0f-b4bc-a157bf53eb36","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T12:00:00.000Z","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721"}
 ```
 
 ## 7. Overlapping PATCH
 
-PATCH http://127.0.0.1:8789/api/bookings/5caf54c8-6558-4ef2-8891-eee5882c9603
+PATCH http://127.0.0.1:8789/api/bookings/bb60eeb1-7228-4d0f-b4bc-a157bf53eb36
 
 Request body: {"startAt":"2030-10-20T10:00:00.000Z"}
 
@@ -92,45 +92,45 @@ Expected: 409; observed: 409
 
 ## 8. Failed PATCH is unchanged
 
-GET http://127.0.0.1:8789/api/bookings/5caf54c8-6558-4ef2-8891-eee5882c9603
+GET http://127.0.0.1:8789/api/bookings/bb60eeb1-7228-4d0f-b4bc-a157bf53eb36
 
 Request body: (none)
 
 Expected: 200; observed: 200
 
 ```json
-{"id":"5caf54c8-6558-4ef2-8891-eee5882c9603","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T12:00:00.000Z","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d"}
+{"id":"bb60eeb1-7228-4d0f-b4bc-a157bf53eb36","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T12:00:00.000Z","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721"}
 ```
 
 ## 9. Self-excluding partial PATCH
 
-PATCH http://127.0.0.1:8789/api/bookings/8bdb22ab-81ee-4e32-94a4-0640a46bf476
+PATCH http://127.0.0.1:8789/api/bookings/16afb542-a949-42fd-95c2-a5a8bee51ebe
 
 Request body: {"purpose":"Updated purpose"}
 
 Expected: 200; observed: 200
 
 ```json
-{"id":"8bdb22ab-81ee-4e32-94a4-0640a46bf476","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z","purpose":"Updated purpose"}
+{"id":"16afb542-a949-42fd-95c2-a5a8bee51ebe","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z","purpose":"Updated purpose"}
 ```
 
 ## 10. Move booking time with full PATCH
 
-PATCH http://127.0.0.1:8789/api/bookings/8bdb22ab-81ee-4e32-94a4-0640a46bf476
+PATCH http://127.0.0.1:8789/api/bookings/16afb542-a949-42fd-95c2-a5a8bee51ebe
 
-Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T12:00:00Z","endAt":"2030-10-20T14:00:00Z"}
+Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T12:00:00Z","endAt":"2030-10-20T14:00:00Z"}
 
 Expected: 200; observed: 200
 
 ```json
-{"id":"8bdb22ab-81ee-4e32-94a4-0640a46bf476","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T12:00:00.000Z","endAt":"2030-10-20T14:00:00.000Z","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d"}
+{"id":"16afb542-a949-42fd-95c2-a5a8bee51ebe","equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T12:00:00.000Z","endAt":"2030-10-20T14:00:00.000Z","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721"}
 ```
 
 ## 11. Contained overlap after time change
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T12:30:00Z","endAt":"2030-10-20T13:30:00Z"}
+Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T12:30:00Z","endAt":"2030-10-20T13:30:00Z"}
 
 Expected: 409; observed: 409
 
@@ -142,7 +142,7 @@ Expected: 409; observed: 409
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-missing","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z"}
+Request body: {"equipmentId":"eq-missing","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T09:00:00.000Z","endAt":"2030-10-20T11:00:00.000Z"}
 
 Expected: 400; observed: 400
 
@@ -154,7 +154,7 @@ Expected: 400; observed: 400
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T09:00:00.000Z"}
+Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T11:00:00.000Z","endAt":"2030-10-20T09:00:00.000Z"}
 
 Expected: 400; observed: 400
 
@@ -166,7 +166,7 @@ Expected: 400; observed: 400
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-02-30T09:00:00Z","endAt":"2030-03-03T11:00:00Z"}
+Request body: {"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-02-30T09:00:00Z","endAt":"2030-03-03T11:00:00Z"}
 
 Expected: 400; observed: 400
 
@@ -238,19 +238,19 @@ Expected: 404; observed: 404
 
 POST http://127.0.0.1:8789/api/bookings
 
-Request body: {"equipmentId":"eq-2","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-20T12:00:00.000Z","endAt":"2030-10-20T14:00:00.000Z"}
+Request body: {"equipmentId":"eq-2","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-20T12:00:00.000Z","endAt":"2030-10-20T14:00:00.000Z"}
 
 Expected: 201; observed: 201
 
 ```json
-{"id":"99d05c49-3081-4516-86b8-c3f093101106","equipmentId":"eq-2","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T12:00:00.000Z","endAt":"2030-10-20T14:00:00.000Z","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d"}
+{"id":"c3398f8d-12c0-4f78-a850-fcfb7ce2f82b","equipmentId":"eq-2","borrowerName":"O'Brien'); DROP TABLE equipment; --","startAt":"2030-10-20T12:00:00.000Z","endAt":"2030-10-20T14:00:00.000Z","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721"}
 ```
 
 ## Concurrent creates
 
 Request: POST http://127.0.0.1:8789/api/bookings
 
-{"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d","startAt":"2030-10-21T09:00:00Z","endAt":"2030-10-21T11:00:00Z"}
+{"equipmentId":"eq-1","borrowerName":"O'Brien'); DROP TABLE equipment; --","purpose":"Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721","startAt":"2030-10-21T09:00:00Z","endAt":"2030-10-21T11:00:00Z"}
 
 Expected one 201 and one 409:
 
@@ -259,12 +259,12 @@ Expected one 201 and one 409:
   {
     "status": 201,
     "body": {
-      "id": "359994d7-99c1-4a38-a334-8acc790a0198",
+      "id": "1a9f3edc-4bb1-4a70-b2bc-5f8dfd33c63f",
       "equipmentId": "eq-1",
       "borrowerName": "O'Brien'); DROP TABLE equipment; --",
       "startAt": "2030-10-21T09:00:00.000Z",
       "endAt": "2030-10-21T11:00:00.000Z",
-      "purpose": "Worker test 10c6a6e5-e5d6-4753-9cef-82fd799ef17d"
+      "purpose": "Worker test 3ce05f0e-213e-41d2-b209-e21932e6b721"
     }
   },
   {
@@ -278,7 +278,7 @@ Expected one 201 and one 409:
 
 ## 21. Delete
 
-DELETE http://127.0.0.1:8789/api/bookings/8bdb22ab-81ee-4e32-94a4-0640a46bf476
+DELETE http://127.0.0.1:8789/api/bookings/16afb542-a949-42fd-95c2-a5a8bee51ebe
 
 Request body: (none)
 
@@ -290,7 +290,7 @@ Expected: 204; observed: 204
 
 ## 22. Deleted booking missing
 
-GET http://127.0.0.1:8789/api/bookings/8bdb22ab-81ee-4e32-94a4-0640a46bf476
+GET http://127.0.0.1:8789/api/bookings/16afb542-a949-42fd-95c2-a5a8bee51ebe
 
 Request body: (none)
 
@@ -302,8 +302,8 @@ Expected: 404; observed: 404
 
 PASS: 22 sequential HTTP cases and competing creates.
 
-Cleanup own test booking 5caf54c8-6558-4ef2-8891-eee5882c9603: 204
+Cleanup own test booking bb60eeb1-7228-4d0f-b4bc-a157bf53eb36: 204
 
-Cleanup own test booking 99d05c49-3081-4516-86b8-c3f093101106: 204
+Cleanup own test booking c3398f8d-12c0-4f78-a850-fcfb7ce2f82b: 204
 
-Cleanup own test booking 359994d7-99c1-4a38-a334-8acc790a0198: 204
+Cleanup own test booking 1a9f3edc-4bb1-4a70-b2bc-5f8dfd33c63f: 204

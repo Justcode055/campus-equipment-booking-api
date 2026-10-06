@@ -14,6 +14,8 @@ Latest prompt: the student stated, “I have already done the code reviews,” a
 
 Deployment prompt: the student asked how to push the source to GitHub and deploy the API to Cloudflare to submit links. Codex used the Cloudflare, Wrangler, and Workers best-practices skills plus official documentation. It prepared `src/worker.ts`, shared `src/validation.ts`, a seeded D1 migration, Wrangler configuration, generated Worker types, a local Worker HTTP test, and DEPLOYMENT_GUIDE.md. The original Node entry point remains available. Codex verified the Node build and 41-case suite, Worker type check, local D1 migration, 22 Worker HTTP cases plus competing creates, and a deployment dry run. These new checks are agent-run. No GitHub push, cloud database creation, or remote deployment was performed by Codex; the student will perform the account steps. The existing student terminal evidence refers to the earlier Node verification, not remote D1 verification.
 
+Deployment update: the student supplied complete live responses from `https://campus-equipment-api.6731503055.workers.dev/api`. Equipment returned 200 and both expected seed records at 15:30:38 Bangkok time; bookings returned 200 with body `[]` at 15:30:45, confirming an empty live booking collection. The bookings body was provided in a follow-up paste. Codex saved this evidence in evidence/CLOUDFLARE_LIVE_READ_CHECKS.md. The configured Git remote is `https://github.com/Justcode055/campus-equipment-booking-api.git` and wrangler.jsonc now contains a real D1 database ID. Codex has not checked repository access or performed the remote deployment itself. Remote write/error verification is not yet supplied.
+
 ## Contributions used
 
 - AI designed the API contract, assumptions, ERD, and schema before implementation.
@@ -146,7 +148,7 @@ The student extracted the new booking ID from the saved JSON response using Conv
 - `src/app.ts` — `app.onError()`: turns invalid input into a JSON 400 response and an overlap error into a JSON 409 response. Unexpected errors return a general JSON 500 message.
 - `schema.sql`: creates the equipment and bookings tables. Each booking points to one equipment record through equipmentId. The INSERT and UPDATE triggers check for overlapping bookings before saving a change.
 - `src/worker.ts`: defines the Cloudflare version of the routes. It receives the D1 database through the DB binding and awaits bound SQL queries. D1 trigger errors include a prefix, so the handler recognizes booking_overlap inside the error message.
-- `wrangler.jsonc` and `migrations/0001_initial.sql`: tell Cloudflare which Worker to run and which D1 database to bind; the migration creates tables/triggers and seeds equipment. The local placeholder database ID must be replaced with the student's real D1 ID before deployment.
+- `wrangler.jsonc` and `migrations/0001_initial.sql`: tell Cloudflare which Worker to run and which D1 database to bind; the migration creates tables/triggers and seeds equipment. The student has replaced the original placeholder with a real D1 ID.
 - `tests/http.test.ts`: contains the HTTP test suite the student ran. It checks successful requests, invalid input, conflicts, and database behavior. The supplied terminal output shows that the suite passed.
 
 Student review status: the student reports completing the code reviews. The file/function descriptions above are AI-assisted summaries of the current source. The report of review completion comes from the student's message; terminal commands demonstrate the tests, rather than a file-by-file record of reading the code.
@@ -168,7 +170,7 @@ Student review status: the student reports completing the code reviews. The file
 
 **What the tests mean:** the 201 response shows a booking was created; the 200 PATCH and GET show the new values were saved; the 400 and 409 responses show invalid and conflicting bookings were rejected; the 204 followed by 404 shows deletion worked. My first verification also checked that data remained after a server restart and that the automated suite passed.
 
-**Limitations:** this is a lab API without authentication or a browser interface. Local Node SQLite and Cloudflare D1 are separate databases. The Workers/D1 version has agent-run local tests and a dry run, but no student-supplied remote deployment evidence yet. The initial snapshot was saved before improvements but was not an instructor-supervised minute-30 checkpoint.
+**Limitations:** this is a lab API without authentication or a browser interface. Local Node SQLite and Cloudflare D1 are separate databases. The Workers/D1 version has agent-run local tests, a dry run, and student-supplied live GET responses; remote write/error checks remain to be recorded. The initial snapshot was saved before improvements but was not an instructor-supervised minute-30 checkpoint.
 
 Student understanding status: code review completion is reported by the student. Codex helped write these explanations at the student's request. Instructor follow-up questions will assess whether the student can explain the submission independently; this log does not claim that assessment has already occurred.
 
@@ -176,20 +178,20 @@ Student understanding status: code review completion is reported by the student.
 
 | Area | Answer and evidence |
 | --- | --- |
-| Purpose | The API handles campus equipment reservations and follows the required contract. Required source and documentation are present. GitHub and live API submission links remain to be recorded. |
+| Purpose | The API handles campus equipment reservations and follows the required contract. Required source and documentation are present. GitHub and live API links are recorded in README.md. |
 | Reliability | Create/update conflict checks and equipment validation are implemented. Student output shows saved updates, errors, restart persistence, and deletion; automated checks include overlap prevention on updates. |
 | Course Context | The project uses TypeScript/Hono and SQLite/D1. AI wrote the implementation and helped with fixes/documentation; the student customized payloads, ran verification, and reports reviewing the code. |
 | Reasoning | The explanations above cover statuses, overlap boundaries, self-exclusion, SQL binding, required behavior, optional choices, and limitations. Their wording is AI-assisted. |
 | Execution Value | The supplied outputs show build/start, CRUD, error tests, and a passing 41-case suite. The additional manual time-changing PATCH sequence is now recorded. |
 | Accuracy | Full responses show correct booking fields and updated times. Invalid ranges return 400, conflicts 409, and missing bookings 404 with JSON error bodies. Source uses parameter binding. |
-| Delivery Quality | README, contract, ERD/schema, AI log, review findings, snapshots, and more than five successful/error HTTP cases are included. Remote links and final packaging remain. |
+| Delivery Quality | README, contract, ERD/schema, AI log, review findings, snapshots, more than five successful/error HTTP cases, and source/live links are included. Final repository access, latest push, and remote write/error checks remain. |
 | You Own It | The student reports completing code review; this log discloses AI authorship and AI-assisted explanations, records personal tests, and describes the review improvements. Instructor ownership questions have not been assessed here. |
 
-Submission status: local API review and recorded verification are complete. The later GitHub/Cloudflare link requirement is still pending in the supplied evidence, so the full link-based submission is not marked READY yet.
+Submission status: local API review and recorded verification are complete; GitHub and live API links are now recorded, with live GET evidence. Remote CRUD/error checks and a final push/access check remain before declaring the link-based submission fully verified.
 
 Problems or remaining questions:
 
 - The first GET used the placeholder `PASTE_THE_RETURNED_ID` and returned HTTP 404 with `Booking not found`. Assigning an unquoted UUID produced a PowerShell CommandNotFoundException; a quoted ID with a leading space produced `curl: (3) URL rejected: Malformed input to a URL function`. The student corrected the variable to the quoted UUID without a leading space and received HTTP 200.
 - The original transcript omitted much of the terminal output. The supplemental files now preserve the full supplied build, HTTP, restart, and test outputs, resolving those evidence gaps. The original transcript is retained unchanged.
 - The student now reports completing code review. Explanations were drafted by Codex in simple language with that assistance disclosed. No source-code edits by the student are evidenced in the supplied outputs; the student customized test payloads and ran the checks.
-- GitHub repository URL, the real D1 database ID, the live Cloudflare API URL, and remote verification results have not been supplied. The checked configuration still uses a placeholder D1 ID; follow DEPLOYMENT_GUIDE.md to finish the link-based submission.
+- GitHub and live API links and the real D1 ID are now recorded. Live GET checks succeeded. Remote CRUD/error verification, pushing the latest documents/evidence, and ensuring instructor repository access remain.

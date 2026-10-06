@@ -36,4 +36,6 @@ Student-run verification is separately documented in AI_LOG.md and evidence/stud
 
 Additional student evidence: evidence/quality-gate-terminal-1.txt and evidence/quality-gate-terminal-2.txt show the local API startup and the instructor guide's additional manual sequence. Observed statuses are 201 create, 200 time-changing PATCH/read, 400 reversed range, 409 contained overlap, 204 delete, and 404 after deletion. The student reports completing code review; AI_LOG.md records simple explanations with AI assistance disclosed.
 
-Submission decision: the local API and recorded verification are complete. GitHub and live Cloudflare submission links and remote API verification remain pending; the full link-based submission is not marked READY yet. The initial untimed-checkpoint disclosure remains unchanged.
+Live deployment update: README.md now records the configured GitHub repository URL and `https://campus-equipment-api.6731503055.workers.dev/api`. Student-supplied live equipment/bookings requests returned 200; equipment JSON contains both seed records and the complete bookings response is `[]`. See evidence/CLOUDFLARE_LIVE_READ_CHECKS.md.
+
+Submission decision: local API review and recorded verification are complete, and submission links are recorded. Remote write/error checks, final push, and instructor repository access remain to be verified. The initial untimed-checkpoint disclosure remains unchanged.
