@@ -1,0 +1,126 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261006134715
+Username: MSI\ADMIN
+RunAs User: MSI\ADMIN
+Configuration Name: 
+Machine: MSI (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\ADMIN\AppData\Local\Programs\Microsoft VS Code\07f806f999\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 8036
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is evidence/student-verification-20261006-134715.txt
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$base = 'http://localhost:8786/api'
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/equipment"
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 115
+Date: Tue, 06 Oct 2026 06:48:51 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+[{"id":"eq-1","name":"Projector A","location":"Building 1"},{"id":"eq-2","name":"Camera B","location":"Media Lab"}]
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings"
+Keep-Alive: timeout=5
+
+[]
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$payload = Get-Content examples/booking.json -Raw | ConvertFrom-Json
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$payload.borrowerName = 'Hein Zaw'
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$payload | ConvertTo-Json | Set-Content examples/student-booking.json -Encoding utf8
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-booking.json'
+ss presentation"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$bookingId = 'PASTE_THE_RETURNED_ID'
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings/$bookingId"
+{"error":"Booking not found"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$bookingId = 725d64ee-ee37-438c-9b4a-c06d0bba9359
+725d64ee-ee37-438c-9b4a-c06d0bba9359 : The term '725d64ee-ee37-438c-9b4a-c06d0bba9359' is not recognized as the name of 
+a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify 
+that the path is correct and try again.
+At line:1 char:14
++ $bookingId = 725d64ee-ee37-438c-9b4a-c06d0bba9359
++              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (725d64ee-ee37-438c-9b4a-c06d0bba9359:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+725d64ee-ee37-438c-9b4a-c06d0bba9359 : The term '725d64ee-ee37-438c-9b4a-c06d0bba9359' is not recognized as the name of a cmdlet, function, script file, or operable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:14
++ $bookingId = 725d64ee-ee37-438c-9b4a-c06d0bba9359
++              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (725d64ee-ee37-438c-9b4a-c06d0bba9359:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$bookingId =' 725d64ee-ee37-438c-9b4a-c06d0bba9359'
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings/$bookingId"
+
+]633;D;1]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$bookingId ='725d64ee-ee37-438c-9b4a-c06d0bba9359'
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings/$bookingId"
+ss presentation"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings"
+ass presentation"}]
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i -X PATCH "$base/bookings/$bookingId" -H 'Content-Type: application/json' --data-binary '@examples/patch.json'
+ated presentation"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings/$bookingId"
+ated presentation"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-booking.json'
+{"error":"Booking time conflicts with an existing booking"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$invalid = Get-Content examples/student-booking.json -Raw | ConvertFrom-Json
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$invalid.equipmentId = 'eq-missing'
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$invalid | ConvertTo-Json | Set-Content examples/student-invalid.json -Encoding utf8
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-invalid.json'
+{"error":"equipmentId does not exist"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$invalid.equipmentId = 'eq-1'
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$invalid.startAt = $invalid.endAt
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>$invalid | ConvertTo-Json | Set-Content examples/student-invalid.json -Encoding utf8
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-invalid.json'
+{"error":"startAt must be before endAt"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings/$bookingId"
+ated presentation"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i -X DELETE "$base/bookings/$bookingId"
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>curl.exe -i "$base/bookings/$bookingId"
+{"error":"Booking not found"}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>npm.cmd test
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cADMIN\x5cDesktop\x5cPD_MidtermPS C:\Users\ADMIN\Desktop\PD_Midterm> ]633;B
+PS>Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20261006141129
+**********************

@@ -1,0 +1,8 @@
+HTTP/1.1 201 Created
+content-type: application/json
+location: /api/bookings/7e7c80c8-fef2-46de-9652-c901466891ef
+Content-Length: 195
+Date: Tue, 06 Oct 2026 07:59:40 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+

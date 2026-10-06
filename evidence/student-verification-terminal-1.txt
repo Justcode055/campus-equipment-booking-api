@@ -1,0 +1,27 @@
+Source: terminal output pasted by the student in chat on 2026-10-06.
+
+PS C:\Users\ADMIN\Desktop\PD_Midterm> npm.cmd run build
+
+> campus-equipment-booking-api@1.0.0 build
+> tsc
+
+PS C:\Users\ADMIN\Desktop\PD_Midterm> New-Item -ItemType Directory -Force data | Out-Null
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $env:PORT = '8786'
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $env:DB_PATH = "data/student-verification-$(Get-Date -Format yyyyMMdd-HHmmss).sqlite"
+PS C:\Users\ADMIN\Desktop\PD_Midterm> npm.cmd start
+
+> campus-equipment-booking-api@1.0.0 start
+> node dist/server.js
+
+(node:13192) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Campus Equipment Booking API: http://localhost:8786/api
+Terminate batch job (Y/N)? y
+PS C:\Users\ADMIN\Desktop\PD_Midterm> npm.cmd start
+
+> campus-equipment-booking-api@1.0.0 start
+> node dist/server.js
+
+(node:26936) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Campus Equipment Booking API: http://localhost:8786/api

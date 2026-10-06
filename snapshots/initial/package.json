@@ -1,0 +1,15 @@
+{
+  "name": "campus-equipment-booking-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.11.0" },
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "tsx tests/http.test.ts"
+  },
+  "dependencies": { "@hono/node-server": "^1.19.0", "hono": "^4.9.0" },
+  "devDependencies": { "@types/node": "^24.0.0", "tsx": "^4.20.0", "typescript": "^5.9.0" }
+}

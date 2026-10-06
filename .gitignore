@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.npm-cache/
+data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.wrangler/
+.dev.vars
+.dev.vars.*
+.env
+.env.*

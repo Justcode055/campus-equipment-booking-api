@@ -1,0 +1,162 @@
+PS C:\Users\ADMIN\Desktop\PD_Midterm> New-Item -ItemType Directory -Force evidence | Out-Null
+PS C:\Users\ADMIN\Desktop\PD_Midterm> Start-Transcript -Path "evidence/student-verification-$(Get-Date -Format yyyyMMdd-HHmmss).txt"
+Transcript started, output file is evidence/student-verification-20261006-134715.txt
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $base = 'http://localhost:8786/api'
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/equipment"
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 115
+Date: Tue, 06 Oct 2026 06:48:51 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+[{"id":"eq-1","name":"Projector A","location":"Building 1"},{"id":"eq-2","name":"Camera B","location":"Media Lab"}]
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings"
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 2
+Date: Tue, 06 Oct 2026 06:49:06 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+[]
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $payload = Get-Content examples/booking.json -Raw | ConvertFrom-Json
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $payload.borrowerName = 'Hein Zaw' 
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $payload | ConvertTo-Json | Set-Content examples/student-booking.json -Encoding utf8
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-booking.json'
+HTTP/1.1 201 Created
+content-type: application/json
+location: /api/bookings/725d64ee-ee37-438c-9b4a-c06d0bba9359
+Content-Length: 195
+Date: Tue, 06 Oct 2026 06:50:22 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"id":"725d64ee-ee37-438c-9b4a-c06d0bba9359","equipmentId":"eq-1","borrowerName":"Hein Zaw","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Class presentation"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $bookingId = 'PASTE_THE_RETURNED_ID'
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings/$bookingId"
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 29
+Date: Tue, 06 Oct 2026 06:51:38 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"error":"Booking not found"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $bookingId = 725d64ee-ee37-438c-9b4a-c06d0bba9359                                                           
+725d64ee-ee37-438c-9b4a-c06d0bba9359 : The term '725d64ee-ee37-438c-9b4a-c06d0bba9359' is not recognized as the name of a cmdlet, function, script file, or operable program. 
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:14
++ $bookingId = 725d64ee-ee37-438c-9b4a-c06d0bba9359
++              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (725d64ee-ee37-438c-9b4a-c06d0bba9359:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $bookingId =' 725d64ee-ee37-438c-9b4a-c06d0bba9359'
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings/$bookingId"            
+curl: (3) URL rejected: Malformed input to a URL function
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $bookingId ='725d64ee-ee37-438c-9b4a-c06d0bba9359' 
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings/$bookingId"            
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 195
+Date: Tue, 06 Oct 2026 06:58:07 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"id":"725d64ee-ee37-438c-9b4a-c06d0bba9359","equipmentId":"eq-1","borrowerName":"Hein Zaw","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Class presentation"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings"
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 197
+Date: Tue, 06 Oct 2026 06:58:24 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+[{"id":"725d64ee-ee37-438c-9b4a-c06d0bba9359","equipmentId":"eq-1","borrowerName":"Hein Zaw","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Class presentation"}]
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i -X PATCH "$base/bookings/$bookingId" -H 'Content-Type: application/json' --data-binary '@examples/patch.json'
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 197
+Date: Tue, 06 Oct 2026 06:58:43 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"id":"725d64ee-ee37-438c-9b4a-c06d0bba9359","equipmentId":"eq-1","borrowerName":"Hein Zaw","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Updated presentation"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings/$bookingId"
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 197
+Date: Tue, 06 Oct 2026 06:59:04 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"id":"725d64ee-ee37-438c-9b4a-c06d0bba9359","equipmentId":"eq-1","borrowerName":"Hein Zaw","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Updated presentation"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-booking.json'
+HTTP/1.1 409 Conflict
+Content-Type: application/json
+Content-Length: 59
+Date: Tue, 06 Oct 2026 07:01:44 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"error":"Booking time conflicts with an existing booking"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $invalid = Get-Content examples/student-booking.json -Raw | ConvertFrom-Json
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $invalid.equipmentId = 'eq-missing'
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $invalid | ConvertTo-Json | Set-Content examples/student-invalid.json -Encoding utf8
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-invalid.json'
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 38
+Date: Tue, 06 Oct 2026 07:02:35 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"error":"equipmentId does not exist"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $invalid.equipmentId = 'eq-1'
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $invalid.startAt = $invalid.endAt
+PS C:\Users\ADMIN\Desktop\PD_Midterm> $invalid | ConvertTo-Json | Set-Content examples/student-invalid.json -Encoding utf8
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i -X POST "$base/bookings" -H 'Content-Type: application/json' --data-binary '@examples/student-invalid.json'
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 40
+Date: Tue, 06 Oct 2026 07:03:22 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"error":"startAt must be before endAt"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings/$bookingId"
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 197
+Date: Tue, 06 Oct 2026 07:05:13 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"id":"725d64ee-ee37-438c-9b4a-c06d0bba9359","equipmentId":"eq-1","borrowerName":"Hein Zaw","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Updated presentation"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i -X DELETE "$base/bookings/$bookingId"
+HTTP/1.1 204 No Content
+content-type: text/plain; charset=UTF-8
+Date: Tue, 06 Oct 2026 07:05:37 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+PS C:\Users\ADMIN\Desktop\PD_Midterm> curl.exe -i "$base/bookings/$bookingId"
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 29
+Date: Tue, 06 Oct 2026 07:05:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"error":"Booking not found"}
+PS C:\Users\ADMIN\Desktop\PD_Midterm> npm.cmd test
+
+> campus-equipment-booking-api@1.0.0 test
+> node tests/http.test.ts
+
+(node:32424) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: 41 HTTP cases, concurrent requests, persistence and database constraints.
+PS C:\Users\ADMIN\Desktop\PD_Midterm> Stop-Transcript
+Transcript stopped, output file is C:\Users\ADMIN\Desktop\PD_Midterm\evidence\student-verification-20261006-134715.txt
