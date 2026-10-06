@@ -2,9 +2,9 @@
 
 TypeScript/Hono API with two runtime options: Node with persistent local SQLite, or Cloudflare Workers with D1. Implements the exam's equipment list and complete bookings CRUD with validation, JSON errors, and atomic overlap prevention. The instructions below run the original Node version.
 
-Source repository: [Justcode055/campus-equipment-booking-api](https://github.com/Justcode055/campus-equipment-booking-api) (URL read from the configured Git remote; repository visibility/access has not been checked here).
+Source repository: [Justcode055/campus-equipment-booking-api](https://github.com/Justcode055/campus-equipment-booking-api). GitHub reports that the repository is public and its default branch is main.
 
-Live base API URL: **https://campus-equipment-api.6731503055.workers.dev/api**. [Equipment endpoint](https://campus-equipment-api.6731503055.workers.dev/api/equipment) returns the two seed records. Student-supplied output records HTTP 200 for equipment and bookings; see [live read evidence](evidence/CLOUDFLARE_LIVE_READ_CHECKS.md). Remote CRUD/error verification is still to be recorded.
+Live base API URL: **https://campus-equipment-api.6731503055.workers.dev/api**. [Equipment endpoint](https://campus-equipment-api.6731503055.workers.dev/api/equipment) returns the two seed records. Student-supplied read checks are in [live read evidence](evidence/CLOUDFLARE_LIVE_READ_CHECKS.md). At the student's explicit request, Codex ran **20 live HTTPS checks** covering CRUD, validation, overlaps on create/update, adjacent intervals, missing resources, and failed-update integrity. All passed and all test-created bookings were removed. Full requests/responses are in [live test results](evidence/CLOUDFLARE_LIVE_TEST_RESULTS.md).
 
 For GitHub publishing and Cloudflare deployment, follow [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md). Worker source is `src/worker.ts`; the D1 migration is `migrations/0001_initial.sql`. Wrangler configuration now contains the student's real D1 database ID.
 
@@ -50,6 +50,7 @@ The tests cover equipment, all CRUD operations, missing resources, invalid JSON/
 - [RUBRIC_COVERAGE.md](RUBRIC_COVERAGE.md): mapping of each rubric area to deliverables.
 - [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md): GitHub and Cloudflare steps.
 - [evidence/WORKER_LOCAL_TEST_RESULTS.md](evidence/WORKER_LOCAL_TEST_RESULTS.md): 22 local Worker/D1 HTTP checks plus competing creates.
+- [evidence/CLOUDFLARE_LIVE_TEST_RESULTS.md](evidence/CLOUDFLARE_LIVE_TEST_RESULTS.md): 20 live API checks, run by Codex at the student's request. Repeat with `npm.cmd run test:live`; this writes temporary bookings to the live submission API and cleans up only its own records.
 
 The folder initially contained only `exam_brief_en.md` and `rubric_en.md`. The student later supplied [quality_gate.md](quality_gate.md) and [curl_test_guide_1.md](curl_test_guide_1.md). The review now maps evidence to all eight areas in that Quality Gate. The instructor cURL guide uses Bash syntax; `curl_test_guide.md` is the AI-authored PowerShell alternative. There was no starter code. The saved initial version is an untimed checkpoint, **not evidence of an instructor-supervised minute-30 checkpoint**. The original brief and rubric are preserved.
 

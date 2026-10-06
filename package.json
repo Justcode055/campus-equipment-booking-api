@@ -15,6 +15,7 @@
     "cf:types": "wrangler types",
     "cf:check": "tsc -p tsconfig.worker.json",
     "cf:test": "node tests/worker-http.test.ts",
+    "test:live": "node tests/live-http.test.ts",
     "cf:dev": "wrangler dev --port 8789",
     "cf:deploy": "wrangler deploy"
   },
